@@ -1,7 +1,8 @@
 *.class
-
+Project.iml
 # Package Files #
 *.war
 *.ear
 .project
 .settings
+
