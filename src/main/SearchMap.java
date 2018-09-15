@@ -1,9 +1,12 @@
 package main;
 
+import javax.print.attribute.standard.Destination;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.addAll;
@@ -11,7 +14,8 @@ import static java.util.Collections.addAll;
 public class SearchMap {
 
     private FlightMap map;
-
+    private HashMap <String,Integer> cityCost;
+    private HashMap <String, String> cityPrevious;
 
     public FlightMap getMap() {
         return map;
@@ -38,6 +42,29 @@ public class SearchMap {
         return visited;
     }
 
+    public void search(String origin, HashMap<String, Boolean> visited, HashMap<String, HashMap<String, Integer>> adj){
+        this.cityCost = new HashMap<>();
+        this.cityPrevious = new HashMap<>();
+        Deque<String> queue = new ArrayDeque<String>();
+
+        queue.push(origin);
+        cityPrevious.put(origin, origin);
+        cityCost.put(origin, 0);
+        while(queue.size() != 0){
+            String currentCity = queue.getFirst();
+            queue.removeFirst();
+            if (adj.containsKey(currentCity)){
+                for (String key : adj.get(currentCity).keySet()){
+                    if (!visited.get(key)){
+                        cityCost.put(key, cityCost.get(currentCity)+adj.get(currentCity).get(key));
+                        cityPrevious.put(key, cityPrevious.get(currentCity)+", "+key);
+                        visited.put(key,true);
+                        queue.addLast(key);
+                    }
+                }
+            }
+        }
+    }
     /**
      * Search through the map and giving the output
      * @param map
@@ -46,6 +73,34 @@ public class SearchMap {
         this.map = map;
         HashMap<String, HashMap<String, Integer>> adj = map.getAdj();
         HashMap<String, Boolean> visited = mergeCity(adj);
+        String origin = map.getOrigin();
+        search(origin, visited, map.getAdj());
+    }
+
+    private String rightpad(String text, int length) {
+        return String.format("%-" + length + "." + length + "s", text);
+    }
+
+    public void output(String arg){
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter(arg));
+            String destination = rightpad("Destination", 15);
+            String flightRoute = rightpad("Flight Route from "+ map.getOrigin(),22);
+            String flightCost = rightpad("Total Cost", 10);
+            String title = destination + flightRoute + flightCost+"\n";
+            writer.write(title);
+            for (String key : cityPrevious.keySet()){
+                if (key!= map.getOrigin()){
+                    String line = rightpad(key,15);
+                    line = line+rightpad(cityPrevious.get(key), 22);
+                    line = line+rightpad(cityCost.get(key).toString(),10);
+                    writer.write(line+"\n");
+                }
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public static void main(String [] args) throws FileNotFoundException {
         if (args.length<2){
@@ -53,6 +108,7 @@ public class SearchMap {
         }else{
             FlightMap flightMap = new FlightMap(args[0]);
             SearchMap searchMap = new SearchMap(flightMap);
+            searchMap.output(args[1]);
         }
     }
 }

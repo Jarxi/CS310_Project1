@@ -1,6 +1,7 @@
 package main;
 
 import org.junit.Test;
+import main.FlightMap;
 
 public class TestFlightMap {
 
