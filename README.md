@@ -1,6 +1,6 @@
 ```diff
 -if you want a clear readme, please visit
-[https://github.com/jjjjjia11/CS310_Project1]
+[CS310_Project1](https://github.com/jjjjjia11/CS310_Project1)
 ```
 ## Commands
 
