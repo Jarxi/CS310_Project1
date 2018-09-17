@@ -43,13 +43,14 @@ public class FlightMap {
         try{
             br = new BufferedReader(new FileReader(filename));
             String line;
+            line = br.readLine();
+            String[] stringArray=line.trim().split(" ");
+            if (stringArray.length==1 && stringArray!=null){
+                this.origin = stringArray[0].toUpperCase();
+            }
             //read line by line
             while ((line = br.readLine()) != null) {
-                String[] stringArray=line.split(" ");
-                if (stringArray.length<3 && stringArray!=null){
-                    this.origin = stringArray[0].toUpperCase();
-                    continue;
-                }
+                stringArray=line.trim().split(" ");
                 //create mapping
                 if (stringArray.length == 3){
                     for (int i=0; i<stringArray.length; i++){
