@@ -17,19 +17,24 @@ public class SearchMap {
     private HashMap <String,Integer> cityCost;
     private HashMap <String, String> cityPrevious;
 
-    public FlightMap getMap() {
-        return map;
+    /**
+     * @return city and the costs of flight
+     */
+    public HashMap<String, Integer> getCityCost() {
+        return cityCost;
     }
 
-    public void setMap(FlightMap map) {
-        this.map = map;
+    public HashMap<String, String> getCityPrevious() {
+        return cityPrevious;
     }
-
+    public String rightpad(String text, int length) {
+        return String.format("%-" + length + "." + length + "s", text);
+    }
     /**
      * put all cities in a map and give the boolean value to represent
      * visited or not
-     * @param adj
-     * @return HashMap<String, Boolean>
+     * @param adj input adjacent cities
+     * @return all cities with false value
      */
     public HashMap<String, Boolean> mergeCity(HashMap<String, HashMap<String, Integer>> adj){
         Set<String> citySet1 = adj.keySet();
@@ -42,11 +47,20 @@ public class SearchMap {
         return visited;
     }
 
+    /**
+     * search the map to find possible destinations and the costs and routes
+     * @param origin the origin city
+     * @param visited the map stores whether the city is visited
+     * @param adj cities that can be reached and the cost
+     */
     public void search(String origin, HashMap<String, Boolean> visited, HashMap<String, HashMap<String, Integer>> adj){
         this.cityCost = new HashMap<>();
         this.cityPrevious = new HashMap<>();
         Deque<String> queue = new ArrayDeque<String>();
 
+        if (origin == null || origin.equals("")){
+            return;
+        }
         queue.push(origin);
         cityPrevious.put(origin, origin);
         cityCost.put(origin, 0);
@@ -67,7 +81,7 @@ public class SearchMap {
     }
     /**
      * Search through the map and giving the output
-     * @param map
+     * @param map search the map
      */
     public SearchMap(FlightMap map){
         this.map = map;
@@ -77,10 +91,10 @@ public class SearchMap {
         search(origin, visited, map.getAdj());
     }
 
-    private String rightpad(String text, int length) {
-        return String.format("%-" + length + "." + length + "s", text);
-    }
-
+    /**
+     * output destination flight and cost to arg
+     * @param arg output file name
+     */
     public void output(String arg){
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(arg));

@@ -17,12 +17,15 @@ public class TestFlightMap {
     @Before
     public void runBeforeTest() throws IOException {
         try{
-            map = new FlightMap("input/inputfile.txt");
+            map = new FlightMap("input/inputfile1.txt");
         }catch (FileNotFoundException e){
             System.out.println(e.getStackTrace());
         }
     }
-
+    @Test
+    public void testGetAdj(){
+        assertEquals(2 ,map.getAdj().keySet().size());
+    }
     /**
      * test if getOrigin() gets the right origin
      */

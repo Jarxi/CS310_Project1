@@ -12,7 +12,7 @@ public class FlightMap {
     //store origin
     private String origin = null;
     //store origin,destination and distance
-    private HashMap<String, HashMap<String, Integer>> adj; //adjacent nodes list
+    private HashMap<String, HashMap<String, Integer>> adj;
 
     public HashMap<String, HashMap<String, Integer>> getAdj() {
         return adj;
@@ -25,18 +25,23 @@ public class FlightMap {
      * add edge between origin and destination with distance
      * @param o origin
      * @param d destination
-     * @param distance
+     * @param cost cost of the flight
      */
-    private void addEdge(String o, String d, Integer distance){
+    private void addEdge(String o, String d, Integer cost){
         if(adj.containsKey(o)){
-            adj.get(o).put(d,distance);
+            adj.get(o).put(d,cost);
         }else{
             HashMap<String, Integer> temp = new HashMap<>();
-            temp.put(d, distance);
+            temp.put(d, cost);
             adj.put(o,temp);
         }
     }
 
+    /**
+     * create a map based on input file
+     * @param filename input file name
+     * @throws IOException
+     */
     private void createMap(String filename) throws IOException {
         BufferedReader br = null;
         //read in file
@@ -72,7 +77,11 @@ public class FlightMap {
         }
     }
 
-    //create new flightMap
+    /**
+     * constructor
+     * @param filename Input file name
+     * @throws IOException Exception appears when it has error to close BufferedReader
+     */
     public FlightMap(String filename) throws IOException {
         adj = new HashMap<>();
         createMap(filename);

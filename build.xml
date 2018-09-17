@@ -57,15 +57,19 @@
 
   <target name="dist" depends="compile">
     <jar destfile = "${jar.dir}/SearchMap.jar" basedir = "${build.dir}">
-      <manifest>
-        <attribute name = "Main-Class" value = "main.SearchMap"/>
-      </manifest>
+    <manifest>
+      <attribute name = "Main-Class" value = "main.SearchMap"/>
+    </manifest>
     </jar>
   </target>
+
   <target name = "doc" description="generate description file" depends="compile">
     <javadoc sourcepath="${main.src.dir}" destdir="${doc.dir}">
       <fileset dir="${main.src.dir}">
         <include name = "**/*.java" />
+      </fileset>
+      <fileset dir="${test.src.dir}">
+        <include name = "**/*.java"/>
       </fileset>
     </javadoc>
   </target>
