@@ -1,12 +1,10 @@
 package main;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 public class TestSearchMap {
 
-    @BeforeClass
+    @Before
     public void runBeforeTest(){
 
     }
@@ -15,7 +13,7 @@ public class TestSearchMap {
 
     }
 
-    @AfterClass
+    @After
     public void runAfterTest(){
 
     }

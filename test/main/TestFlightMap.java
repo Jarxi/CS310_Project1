@@ -17,7 +17,7 @@ public class TestFlightMap {
     @Before
     public void runBeforeTest() throws IOException {
         try{
-            map = new FlightMap("test/inputfile.txt");
+            map = new FlightMap("input/inputfile.txt");
         }catch (FileNotFoundException e){
             System.out.println(e.getStackTrace());
         }
@@ -28,11 +28,6 @@ public class TestFlightMap {
      */
     @Test
     public void testGetOrigin(){
-        if (map.getOrigin() == null){
-            System.out.println("map origin is null");
-        }else{
-            System.out.println(map.getOrigin()+ " Someting");
-        }
         assertEquals("P", map.getOrigin());
     }
 
@@ -53,18 +48,15 @@ public class TestFlightMap {
         }
         assertEquals(3, numCities);
     }
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
-    //test if FileNotFoundException is thrown
+    /**
+     * do not read in cities when a line has less than three elements
+     * @throws IOException
+     */
     @Test
-    public void testCreateMap() throws Exception{
-        FlightMap map2 = new FlightMap("test/doesNotExist.txt");
-        thrown.expect(FileNotFoundException.class);
+    public void testCreateMap() throws IOException{
+        FlightMap map2 = new FlightMap("input/inputfile2.txt");
+        assertEquals(0,map2.getAdj().size());
     }
 
-    @After
-    public void runAfterTest(){
-
-    }
 }
