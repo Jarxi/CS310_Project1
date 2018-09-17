@@ -102,13 +102,16 @@ public class SearchMap {
             e.printStackTrace();
         }
     }
-    public static void main(String [] args) throws FileNotFoundException {
+    public static void main(String [] args) throws IOException {
         if (args.length<2){
             System.out.println("Please enter two filenames.");
         }else{
+
             FlightMap flightMap = new FlightMap(args[0]);
-            SearchMap searchMap = new SearchMap(flightMap);
-            searchMap.output(args[1]);
+            if (flightMap.getOrigin() != null){
+                SearchMap searchMap = new SearchMap(flightMap);
+                searchMap.output(args[1]);
+            }
         }
     }
 }

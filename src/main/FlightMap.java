@@ -10,7 +10,7 @@ public class FlightMap {
 
 
     //store origin
-    private String origin;
+    private String origin = null;
     //store origin,destination and distance
     private HashMap<String, HashMap<String, Integer>> adj; //adjacent nodes list
 
@@ -37,10 +37,11 @@ public class FlightMap {
         }
     }
 
-
-    private void createMap(String filename) throws FileNotFoundException {
+    private void createMap(String filename) throws IOException {
+        BufferedReader br = null;
         //read in file
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        try{
+            br = new BufferedReader(new FileReader(filename));
             String line;
             //read line by line
             while ((line = br.readLine()) != null) {
@@ -59,14 +60,19 @@ public class FlightMap {
                 }
             }
         } catch (FileNotFoundException fileNotFound){
-            fileNotFound.printStackTrace();
+            System.out.println("File is not found. Please check " +
+                    "the filename and put input files under test/ directory.");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("There is trouble reading the file");
+        }finally {
+            if(br!=null){
+                br.close();
+            }
         }
     }
 
     //create new flightMap
-    public FlightMap(String filename) throws FileNotFoundException {
+    public FlightMap(String filename) throws IOException {
         adj = new HashMap<>();
         createMap(filename);
     }
