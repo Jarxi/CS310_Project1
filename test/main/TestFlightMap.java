@@ -14,6 +14,12 @@ import static org.junit.Assert.assertEquals;
 
 public class TestFlightMap {
     FlightMap map;
+
+    /**
+     * Run every time before each test.
+     * @throws IOException Exception is thrown when BufferedReader in FlightMap.java
+     * cannot be closed.
+     */
     @Before
     public void runBeforeTest() throws IOException {
         try{
@@ -22,6 +28,10 @@ public class TestFlightMap {
             System.out.println(e.getStackTrace());
         }
     }
+
+    /**
+     * Based on the inputfile, there should be two start cities
+     */
     @Test
     public void testGetAdj(){
         assertEquals(2 ,map.getAdj().keySet().size());
@@ -54,7 +64,7 @@ public class TestFlightMap {
 
     /**
      * do not read in cities when a line has less than three elements
-     * @throws IOException
+     * @throws IOException Exception is thrown when BufferedReader cannot be closed
      */
     @Test
     public void testCreateMap() throws IOException{

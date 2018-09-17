@@ -12,6 +12,12 @@ import static org.junit.Assert.assertEquals;
 
 public class TestSearchMap {
     SearchMap searchMap;
+
+    /**
+     * run every time before each test
+     * @throws Exception Exception is thrown when the BufferedReader in FlightMap.java cannot
+     * be closed
+     */
     @Before
     public void runBeforeTest() throws Exception{
         FlightMap flightMap = new FlightMap("input/inputfile1.txt");
@@ -20,6 +26,10 @@ public class TestSearchMap {
             searchMap.output("output/outputfile.txt");
         }
     }
+
+    /**
+     * Based on the input, check if the cost is right
+     */
     @Test
     public void testGetCityCost(){
         assertEquals(300, searchMap.getCityCost().get("R").intValue());
@@ -27,6 +37,9 @@ public class TestSearchMap {
         assertEquals(500, searchMap.getCityCost().get("X").intValue());
     }
 
+    /**
+     * Based on the input, check if the path is right
+     */
     @Test
     public void testGetCityPrevious(){
         assertEquals("P, W", searchMap.getCityPrevious().get("W"));
@@ -78,7 +91,7 @@ public class TestSearchMap {
     /**
      * with inputfile1.txt, the testoutput.txt should contain 5 lines with
      * empty 5th line
-     * @throws IOException
+     * @throws IOException IOException is thrown when BufferedReader cannot be closed.
      */
     @Test
     public void testOutput() throws IOException {

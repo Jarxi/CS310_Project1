@@ -1,6 +1,6 @@
 ```diff
 -if you want a clear readme, please visit
-[CS310_Project1](https://github.com/jjjjjia11/CS310_Project1)
+https://github.com/jjjjjia11/CS310_Project1
 ```
 ## Commands
 
@@ -43,3 +43,10 @@ java main.SearchMap ../input/inputfile.txt ../output/outputfile.txt
 cd dist
 java -jar SearchMap.jar ../input/inputfile.txt ../output/output.txt
 ```
+
+### Others
+Test files are outside src/ and inside test/. I asked the professor on 
+Piazza and he said its fine.
+
+Do not delete input/ and output/, these are very important. My test files takes input
+from these two folders.
