@@ -1,3 +1,7 @@
+```diff
+-if you want a clear readme, please visit
+[https://github.com/jjjjjia11/CS310_Project1]
+```
 ## Commands
 
 init doc/dist/bin   
@@ -12,7 +16,7 @@ compile test classes and main classes
 convert classes to jar file   
 `ant dist`
 
-generate documentation   
+generate documentation, generated file is under doc/main/   
 `ant doc`
 
 run tests   
