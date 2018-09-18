@@ -18,12 +18,17 @@ public class SearchMap {
     private HashMap <String, String> cityPrevious;
 
     /**
+     * the function get the costs of flight
      * @return city and the costs of flight
      */
     public HashMap<String, Integer> getCityCost() {
         return cityCost;
     }
 
+    /**
+     * the function returns the route
+     * @return the route
+     */
     public HashMap<String, String> getCityPrevious() {
         return cityPrevious;
     }
@@ -116,6 +121,7 @@ public class SearchMap {
             e.printStackTrace();
         }
     }
+
     public static void main(String [] args) throws IOException {
         if (args.length<2){
             System.out.println("Please enter two filenames.");

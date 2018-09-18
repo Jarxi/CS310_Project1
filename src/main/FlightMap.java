@@ -14,10 +14,18 @@ public class FlightMap {
     //store origin,destination and distance
     private HashMap<String, HashMap<String, Integer>> adj;
 
+    /**
+     * get adjacent city
+     * @return adjacent city map
+     */
     public HashMap<String, HashMap<String, Integer>> getAdj() {
         return adj;
     }
 
+    /**
+     * get origin city
+     * @return city origin
+     */
     public String getOrigin() {
         return origin;
     }
@@ -40,7 +48,7 @@ public class FlightMap {
     /**
      * create a map based on input file
      * @param filename input file name
-     * @throws IOException
+     * @throws IOException Exception is thrown when bufferedreader cannot be closed
      */
     private void createMap(String filename) throws IOException {
         BufferedReader br = null;
